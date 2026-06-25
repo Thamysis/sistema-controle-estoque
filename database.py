@@ -1,12 +1,15 @@
-from app import app
+import os
 
+from app import app
+from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 
+load_dotenv()
 
-username = 'root'
-password = ''
-server = 'localhost'
-database_name = 'sistemacontroleestoque'
+username = os.environ.get("DB_USERNAME", "root")
+password = os.environ.get("DB_PASSWORD", "")
+server = os.environ.get("DB_SERVER", "localhost")
+database_name = os.environ.get("DB_NAME", "sistemacontroleestoque")
 
 
 def get_connection():
