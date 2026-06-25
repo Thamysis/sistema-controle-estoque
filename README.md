@@ -10,9 +10,16 @@ Aplicacao web simples para controle de estoque, desenvolvida com Flask no backen
 - MySQL
 - pip
 
-## Como executar o projeto
+## Primeira execucao do projeto
 
-### 1. Criar e ativar um ambiente virtual
+### 1. Clonar o repositorio e entrar na pasta
+
+```bash
+git clone <url-do-repositorio>
+cd sistema-controle-estoque
+```
+
+### 2. Criar e ativar um ambiente virtual
 
 No Windows PowerShell:
 
@@ -28,15 +35,17 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 2. Instalar as dependencias
+Se o ambiente virtual estiver ativo, o terminal normalmente passa a mostrar o prefixo `.venv`.
+
+### 3. Instalar as dependencias do projeto
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Criar o arquivo .env
+### 4. Criar o arquivo `.env`
 
-Use o arquivo `.env.example` como base e crie um arquivo `.env` na raiz do projeto.
+Crie um arquivo `.env` na raiz do projeto a partir do `.env.example`.
 
 Exemplo:
 
@@ -48,9 +57,9 @@ DB_SERVER=localhost
 DB_NAME=sistemacontroleestoque
 ```
 
-### 4. Configurar o banco MySQL
+### 5. Criar o banco de dados no MySQL
 
-Crie um banco de dados MySQL com o nome configurado em `DB_NAME`.
+Abra o MySQL e crie o banco configurado no `.env`.
 
 Exemplo:
 
@@ -58,22 +67,45 @@ Exemplo:
 CREATE DATABASE sistemacontroleestoque;
 ```
 
-Depois disso, ajuste no arquivo `.env` os valores de acesso ao banco:
+Se necessario, ajuste no `.env`:
 
 - `DB_USERNAME`
 - `DB_PASSWORD`
 - `DB_SERVER`
 - `DB_NAME`
 
-O projeto usa essas variaveis para montar a conexao com o MySQL em tempo de execucao.
+### 6. Garantir que a estrutura do banco exista
 
-### 5. Executar a aplicacao
+O projeto espera que o banco MySQL ja esteja disponivel e com as tabelas necessarias para autenticacao e produtos. Se estiver rodando o sistema pela primeira vez em uma base vazia, crie as tabelas conforme a modelagem do projeto.
+
+### 7. Executar a aplicacao
 
 ```bash
 python app.py
 ```
 
-Por padrao, a aplicacao sera iniciada localmente pelo servidor do Flask.
+Com a aplicacao em execucao, acesse no navegador:
+
+```text
+http://127.0.0.1:5000
+```
+
+## Execucoes seguintes
+
+Depois da primeira configuracao, o fluxo normal costuma ser:
+
+1. Ativar o ambiente virtual.
+2. Garantir que o MySQL esteja em execucao.
+3. Conferir se o arquivo `.env` continua presente.
+4. Rodar `python app.py`.
+
+## Testes
+
+Para executar os testes localmente:
+
+```bash
+pytest
+```
 
 ## Qualidade e automacao
 
@@ -81,6 +113,7 @@ O projeto possui automacoes configuradas com GitHub Actions para integracao cont
 
 Tambem possui configuracao para analise de qualidade com SonarCloud.
 
-## Autor
+## Autores
 
-- Andre Felipe Pereira dos Santos
+- Pyerry Klyzlow Xavier
+- [Thamyres Santos](https://github.com/Thamysis)
