@@ -50,6 +50,6 @@ def login():
 
 @app.route('/logout', methods=['GET'], endpoint='usuario.logout')
 def logout():
-    session['logged'] = False
+    session.clear()
     flash('Insira o usuário e senha para continuar.')
     return redirect(url_for('index'))
