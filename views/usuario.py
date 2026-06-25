@@ -14,8 +14,7 @@ def index():
     if 'logged' in session and session['logged']:
         return redirect(url_for('main'))
 
-    else:
-        return render_template('index.html')
+    return render_template('index.html')
 
 
 @app.route('/main', methods=['GET'], endpoint='main')
@@ -24,8 +23,7 @@ def main():
     if 'logged' not in session or not session['logged']:
         return redirect(url_for('index'))
 
-    else:
-        return render_template('main.html')
+    return render_template('main.html')
 
 
 @app.route('/login', methods=['POST'], endpoint='usuario.login')
@@ -46,9 +44,8 @@ def login():
         session['logged'] = True
         return redirect(url_for('main'))
 
-    else:
-        flash(MSG_LOGIN_INVALIDO)
-        return render_template('index.html')
+    flash(MSG_LOGIN_INVALIDO)
+    return render_template('index.html')
 
 
 @app.route('/logout', methods=['GET'], endpoint='usuario.logout')
