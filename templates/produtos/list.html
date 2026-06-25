@@ -52,7 +52,12 @@
                                     <td> {{ produto.quantidade }} </td>
                                     <td> {{ produto.categoria }} </td>
                                     <td><a href="{{ url_for('produto.edit', idproduto=produto.idproduto) }}">Editar</a></td>
-                                    <td><a href="{{ url_for('produto.delete', idproduto=produto.idproduto) }}">Excluir</a></td>
+                                    <td>
+                                        <form action="{{ url_for('produto.delete') }}" method="post">
+                                            <input type="hidden" name="idproduto" value="{{ produto.idproduto }}">
+                                            <button type="submit" class="btn btn-link p-0">Excluir</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
