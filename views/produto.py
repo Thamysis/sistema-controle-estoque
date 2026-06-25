@@ -64,11 +64,17 @@ def delete():
 
     if not idproduto_valido(idproduto):
         flash(MSG_IDPRODUTO_INVALIDO)
+        return redirect(url_for('produto.list'))
 
-    else:
-        model = Produto()
-        model.delete(request)
-        flash('Produto excluído com sucesso.')
+    model = Produto()
+    produto = model.view(request)
+
+    if produto is None:
+        flash(MSG_PRODUTO_NAO_ENCONTRADO)
+        return redirect(url_for('produto.list'))
+
+    model.delete(request)
+    flash('Produto excluído com sucesso.')
 
     return redirect(url_for('produto.list'))
 
