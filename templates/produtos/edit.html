@@ -33,6 +33,7 @@
                     {% endwith %}
 
                     <form action="{{ url_for('produto.edit') }}" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="idproduto" value="{{ produto.idproduto }}" id="idproduto" class="form-control" placeholder="Id Produto" required>
 
                         <label for="nome" class="visually-hidden">Nome:</label>
