@@ -99,17 +99,18 @@ def edit():
         quantidade = request.form.get('quantidade', '')
         categoria = request.form.get('categoria', '')
 
-        erro = validar_dados_produto(nome, quantidade, categoria)
-
         if not idproduto_valido(idproduto):
             flash(MSG_IDPRODUTO_INVALIDO)
+            return redirect(url_for('produto.list'))
 
-        elif erro:
+        erro = validar_dados_produto(nome, quantidade, categoria)
+
+        if erro:
             flash(erro)
+            return render_template('produtos/edit.html', produto=request.form)
 
-        else:
-            model = Produto()
-            model.edit(request)
-            flash('Produto alterado com sucesso.')
+        model = Produto()
+        model.edit(request)
+        flash('Produto alterado com sucesso.')
 
         return render_template('produtos/edit.html', produto=request.form)
