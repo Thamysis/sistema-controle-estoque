@@ -1,7 +1,4 @@
-from app import app
 from database import database
-
-
 class Produto(database.Model):
 
     __tablename__ = 'produtos'
@@ -16,12 +13,10 @@ class Produto(database.Model):
         nullable=False
     )
 
-
     quantidade = database.Column(
         database.Integer,
         nullable=False
     )
-
 
     categoria = database.Column(
         database.String(45),

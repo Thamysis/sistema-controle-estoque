@@ -18,6 +18,9 @@ MSG_NOME_INVALIDO = "Campo 'nome' é obrigatório e deve ter no máximo 40 carac
 MSG_QUANTIDADE_INVALIDA = "Campo 'quantidade' é obrigatório e deve ser numérico."
 MSG_CATEGORIA_INVALIDA = "Campo 'categoria' é obrigatório ou é inválido."
 MSG_PRODUTO_NAO_ENCONTRADO = 'Produto não encontrado.'
+MSG_PRODUTO_INSERIDO = 'Produto inserido com sucesso.'
+MSG_PRODUTO_ALTERADO = 'Produto alterado com sucesso.'
+MSG_PRODUTO_EXCLUIDO = 'Produto excluído com sucesso.'
 
 
 def idproduto_valido(idproduto):
@@ -55,7 +58,7 @@ def insert():
 
     model = Produto()
     model.insert(request)
-    flash('Produto inserido com sucesso.')
+    flash(MSG_PRODUTO_INSERIDO)
 
     return render_template('produtos/insert.html')
 
@@ -77,7 +80,7 @@ def delete():
         return redirect(url_for('produto.list'))
 
     model.delete(request)
-    flash('Produto excluído com sucesso.')
+    flash(MSG_PRODUTO_EXCLUIDO)
 
     return redirect(url_for('produto.list'))
 
@@ -109,29 +112,28 @@ def edit():
 
         return render_template('produtos/edit.html', produto=produto)
 
-    else:
-        idproduto = request.form.get('idproduto', '')
-        nome = request.form.get('nome', '')
-        quantidade = request.form.get('quantidade', '')
-        categoria = request.form.get('categoria', '')
+    idproduto = request.form.get('idproduto', '')
+    nome = request.form.get('nome', '')
+    quantidade = request.form.get('quantidade', '')
+    categoria = request.form.get('categoria', '')
 
-        if not idproduto_valido(idproduto):
-            flash(MSG_IDPRODUTO_INVALIDO)
-            return redirect(url_for('produto.list'))
+    if not idproduto_valido(idproduto):
+        flash(MSG_IDPRODUTO_INVALIDO)
+        return redirect(url_for('produto.list'))
 
-        erro = validar_dados_produto(nome, quantidade, categoria)
+    erro = validar_dados_produto(nome, quantidade, categoria)
 
-        if erro:
-            flash(erro)
-            return render_template('produtos/edit.html', produto=request.form)
-
-        model = Produto()
-
-        if model.view(request) is None:
-            flash(MSG_PRODUTO_NAO_ENCONTRADO)
-            return redirect(url_for('produto.list'))
-
-        model.edit(request)
-        flash('Produto alterado com sucesso.')
-
+    if erro:
+        flash(erro)
         return render_template('produtos/edit.html', produto=request.form)
+
+    model = Produto()
+
+    if model.view(request) is None:
+        flash(MSG_PRODUTO_NAO_ENCONTRADO)
+        return redirect(url_for('produto.list'))
+
+    model.edit(request)
+    flash(MSG_PRODUTO_ALTERADO)
+
+    return render_template('produtos/edit.html', produto=request.form)

@@ -3,4 +3,5 @@ Flask-WTF
 Flask-SQLAlchemy
 bcrypt
 mysqlclient
+pytest
 python-dotenv

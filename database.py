@@ -13,14 +13,14 @@ database_name = os.environ.get("DB_NAME", "sistemacontroleestoque")
 
 
 def get_connection():
-    config = "mysql://{username}:{password}@{server}/{database}".format(
+    database_uri = "mysql://{username}:{password}@{server}/{database}".format(
         username=username,
         password=password,
         server=server,
         database=database_name
     )
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = config
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 
     return SQLAlchemy(app)
 
