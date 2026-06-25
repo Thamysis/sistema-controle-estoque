@@ -5,3 +5,4 @@ bcrypt
 mysqlclient
 pytest
 python-dotenv
+pytest-cov
