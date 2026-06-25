@@ -2,6 +2,7 @@ from flask import request, render_template, url_for, redirect, flash
 from app import app
 
 from models.Produto import Produto
+from views.auth import login_required
 
 CATEGORIAS_VALIDAS = [
     'Informática',
@@ -37,6 +38,7 @@ def validar_dados_produto(nome, quantidade, categoria):
 
 
 @app.route('/main/produtos/insert', methods=['GET', 'POST'], endpoint='produto.insert')
+@login_required
 def insert():
     if request.method == 'GET':
         return render_template('produtos/insert.html')
@@ -59,6 +61,7 @@ def insert():
 
 
 @app.route('/main/produtos/delete', methods=['POST'], endpoint='produto.delete')
+@login_required
 def delete():
     idproduto = request.values.get('idproduto', '')
 
@@ -80,6 +83,7 @@ def delete():
 
 
 @app.route('/main/produtos', methods=['GET'], endpoint='produto.list')
+@login_required
 def list():
     model = Produto()
     produtos = model.list(request)
@@ -87,6 +91,7 @@ def list():
 
 
 @app.route('/main/produtos/edit', methods=['GET', 'POST'], endpoint='produto.edit')
+@login_required
 def edit():
     if request.method == 'GET':
         idproduto = request.values.get('idproduto', '')
