@@ -112,29 +112,28 @@ def edit():
 
         return render_template('produtos/edit.html', produto=produto)
 
-    else:
-        idproduto = request.form.get('idproduto', '')
-        nome = request.form.get('nome', '')
-        quantidade = request.form.get('quantidade', '')
-        categoria = request.form.get('categoria', '')
+    idproduto = request.form.get('idproduto', '')
+    nome = request.form.get('nome', '')
+    quantidade = request.form.get('quantidade', '')
+    categoria = request.form.get('categoria', '')
 
-        if not idproduto_valido(idproduto):
-            flash(MSG_IDPRODUTO_INVALIDO)
-            return redirect(url_for('produto.list'))
+    if not idproduto_valido(idproduto):
+        flash(MSG_IDPRODUTO_INVALIDO)
+        return redirect(url_for('produto.list'))
 
-        erro = validar_dados_produto(nome, quantidade, categoria)
+    erro = validar_dados_produto(nome, quantidade, categoria)
 
-        if erro:
-            flash(erro)
-            return render_template('produtos/edit.html', produto=request.form)
-
-        model = Produto()
-
-        if model.view(request) is None:
-            flash(MSG_PRODUTO_NAO_ENCONTRADO)
-            return redirect(url_for('produto.list'))
-
-        model.edit(request)
-        flash(MSG_PRODUTO_ALTERADO)
-
+    if erro:
+        flash(erro)
         return render_template('produtos/edit.html', produto=request.form)
+
+    model = Produto()
+
+    if model.view(request) is None:
+        flash(MSG_PRODUTO_NAO_ENCONTRADO)
+        return redirect(url_for('produto.list'))
+
+    model.edit(request)
+    flash(MSG_PRODUTO_ALTERADO)
+
+    return render_template('produtos/edit.html', produto=request.form)
