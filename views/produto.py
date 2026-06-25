@@ -22,6 +22,19 @@ def idproduto_valido(idproduto):
     return bool(idproduto and idproduto.isdigit() and int(idproduto) > 0)
 
 
+def validar_dados_produto(nome, quantidade, categoria):
+    if not nome or len(nome) > 40:
+        return MSG_NOME_INVALIDO
+
+    if not quantidade or not quantidade.isdigit() or int(quantidade) < 0:
+        return MSG_QUANTIDADE_INVALIDA
+
+    if not categoria or categoria not in CATEGORIAS_VALIDAS:
+        return MSG_CATEGORIA_INVALIDA
+
+    return None
+
+
 @app.route('/main/produtos/insert', methods=['GET', 'POST'], endpoint='produto.insert')
 def insert():
     if request.method == 'GET':
@@ -32,16 +45,10 @@ def insert():
         quantidade = request.form.get('quantidade', '')
         categoria = request.form.get('categoria', '')
 
-        categorias = CATEGORIAS_VALIDAS
+        erro = validar_dados_produto(nome, quantidade, categoria)
 
-        if not nome or len(nome) > 40:
-            flash(MSG_NOME_INVALIDO)
-
-        elif not quantidade or not quantidade.isdigit() or int(quantidade) < 0:
-            flash(MSG_QUANTIDADE_INVALIDA)
-
-        elif not categoria or categoria not in categorias:
-            flash(MSG_CATEGORIA_INVALIDA)
+        if erro:
+            flash(erro)
 
         else:
             model = Produto()
@@ -93,19 +100,13 @@ def edit():
         quantidade = request.form.get('quantidade', '')
         categoria = request.form.get('categoria', '')
 
-        categorias = CATEGORIAS_VALIDAS
+        erro = validar_dados_produto(nome, quantidade, categoria)
 
         if not idproduto_valido(idproduto):
             flash(MSG_IDPRODUTO_INVALIDO)
 
-        if not nome or len(nome) > 40:
-            flash(MSG_NOME_INVALIDO)
-
-        elif not quantidade or not quantidade.isdigit() or int(quantidade) < 0:
-            flash(MSG_QUANTIDADE_INVALIDA)
-
-        elif not categoria or categoria not in categorias:
-            flash(MSG_CATEGORIA_INVALIDA)
+        elif erro:
+            flash(erro)
 
         else:
             model = Produto()
