@@ -40,22 +40,21 @@ def insert():
     if request.method == 'GET':
         return render_template('produtos/insert.html')
 
-    else:
-        nome = request.form.get('nome', '')
-        quantidade = request.form.get('quantidade', '')
-        categoria = request.form.get('categoria', '')
+    nome = request.form.get('nome', '')
+    quantidade = request.form.get('quantidade', '')
+    categoria = request.form.get('categoria', '')
 
-        erro = validar_dados_produto(nome, quantidade, categoria)
+    erro = validar_dados_produto(nome, quantidade, categoria)
 
-        if erro:
-            flash(erro)
-
-        else:
-            model = Produto()
-            model.insert(request)
-            flash('Produto inserido com sucesso.')
-
+    if erro:
+        flash(erro)
         return render_template('produtos/insert.html')
+
+    model = Produto()
+    model.insert(request)
+    flash('Produto inserido com sucesso.')
+
+    return render_template('produtos/insert.html')
 
 
 @app.route('/main/produtos/delete', methods=['GET'], endpoint='produto.delete')
