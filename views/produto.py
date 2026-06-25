@@ -3,6 +3,20 @@ from app import app
 
 from models.Produto import Produto
 
+CATEGORIAS_VALIDAS = [
+    'Informática',
+    'Telefonia',
+    'Moda',
+    'Eletrodomésticos',
+    'Automotivo',
+    'Pet Shop',
+]
+
+MSG_IDPRODUTO_INVALIDO = "Campo 'idproduto' é obrigatório e deve ser numérico."
+MSG_NOME_INVALIDO = "Campo 'nome' é obrigatório e deve ter no máximo 40 caracteres."
+MSG_QUANTIDADE_INVALIDA = "Campo 'quantidade' é obrigatório e deve ser numérico."
+MSG_CATEGORIA_INVALIDA = "Campo 'categoria' é obrigatório ou é inválido."
+
 
 @app.route('/main/produtos/insert', methods=['GET', 'POST'], endpoint='produto.insert')
 def insert():
@@ -14,16 +28,16 @@ def insert():
         quantidade = request.form.get('quantidade', '')
         categoria = request.form.get('categoria', '')
 
-        categorias = ['Informática', 'Telefonia', 'Moda', 'Eletrodomésticos', 'Automotivo', 'Pet Shop']
+        categorias = CATEGORIAS_VALIDAS
 
         if not nome or len(nome) > 40:
-            flash("Campo 'nome' é obrigatório e deve ter no máximo 40 caracteres.")
+            flash(MSG_NOME_INVALIDO)
 
         elif not quantidade or not quantidade.isdigit() or int(quantidade) < 0:
-            flash("Campo 'quantidade' é obrigatório e deve ser numérico.")
+            flash(MSG_QUANTIDADE_INVALIDA)
 
         elif not categoria or categoria not in categorias:
-            flash("Campo 'categoria' é obrigatório ou é inválido.")
+            flash(MSG_CATEGORIA_INVALIDA)
 
         else:
             model = Produto()
@@ -38,7 +52,7 @@ def delete():
     idproduto = request.values.get('idproduto', '')
 
     if not idproduto or not idproduto.isdigit() or int(idproduto) <= 0:
-        flash("Campo 'idproduto' é obrigatório e deve ser numérico.")
+        flash(MSG_IDPRODUTO_INVALIDO)
 
     else:
         model = Produto()
@@ -61,7 +75,7 @@ def edit():
         idproduto = request.values.get('idproduto', '')
 
         if not idproduto or not idproduto.isdigit() or int(idproduto) <= 0:
-            flash("Campo 'idproduto' é obrigatório e deve ser numérico.")
+            flash(MSG_IDPRODUTO_INVALIDO)
             return redirect(url_for('produto.list'))
 
         else:
@@ -75,19 +89,19 @@ def edit():
         quantidade = request.form.get('quantidade', '')
         categoria = request.form.get('categoria', '')
 
-        categorias = ['Informática', 'Telefonia', 'Moda', 'Eletrodomésticos', 'Automotivo', 'Pet Shop',]
+        categorias = CATEGORIAS_VALIDAS
 
         if not idproduto or not idproduto.isdigit() or int(idproduto) <= 0:
-            flash("Campo 'idproduto' é obrigatório e deve ser numérico.")
+            flash(MSG_IDPRODUTO_INVALIDO)
 
         if not nome or len(nome) > 40:
-            flash("Campo 'nome' é obrigatório e deve ter no máximo 40 caracteres.")
+            flash(MSG_NOME_INVALIDO)
 
         elif not quantidade or not quantidade.isdigit() or int(quantidade) < 0:
-            flash("Campo 'quantidade' é obrigatório e deve ser numérico.")
+            flash(MSG_QUANTIDADE_INVALIDA)
 
         elif not categoria or categoria not in categorias:
-            flash("Campo 'categoria' é obrigatório ou é inválido.")
+            flash(MSG_CATEGORIA_INVALIDA)
 
         else:
             model = Produto()
