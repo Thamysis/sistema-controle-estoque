@@ -4,6 +4,23 @@
 
 Aplicacao web simples para controle de estoque, desenvolvida com Flask no backend e HTML/CSS com Bootstrap no frontend. O sistema possui autenticacao de usuarios e CRUD de produtos, incluindo cadastro, listagem, edicao e exclusao.
 
+## Origem do projeto e organização dos forks
+
+Este repositório é utilizado para o projeto da disciplina SSC0535 – Gerência de Configuração, Evolução e Manutenção de Software, do Bacharelado em Sistemas de Informação da Universidade de São Paulo.
+
+O sistema de controle de estoque utilizado como base não foi desenvolvido do zero pela equipe. A proposta da disciplina é trabalhar sobre um sistema já existente, aplicando práticas de gerência de configuração, manutenção, evolução de software, análise de qualidade de código e integração contínua.
+
+A organização dos repositórios ficou definida da seguinte forma:
+
+* Repositório original do sistema: `https://github.com/liipeandre/sistema-controle-estoque-flask`
+* Fork utilizado pela equipe: `https://github.com/Thamysis/sistema-controle-estoque`
+* Fork individual utilizado para contribuições: `https://github.com/pyerryxavier0308/sistema-controle-estoque`
+
+O repositório `Thamysis/sistema-controle-estoque` passou a ser tratado como o repositório principal da equipe para fins de documentação, análise no SonarCloud, integração contínua e registro das mudanças planejadas. O fork individual foi utilizado para desenvolvimento de alterações em branches separadas, que posteriormente foram propostas ao repositório da equipe por meio de pull requests.
+
+As modificações feitas pela equipe têm foco em manutenção e evolução do sistema, incluindo melhorias de qualidade de código, ajustes de manutenibilidade, correções apontadas pelo SonarCloud, revisão de segurança e configuração de workflow de integração contínua.
+
+
 ## Requisitos
 
 - Python 3.11 ou superior
@@ -115,5 +132,5 @@ Tambem possui configuracao para analise de qualidade com SonarCloud.
 
 ## Autores
 
-- Pyerry Klyzlow Xavier
+- [Pyerry Klyzlow Xavier](https://github.com/pyerryxavier0308)
 - [Thamyres Santos](https://github.com/Thamysis)
