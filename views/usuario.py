@@ -26,9 +26,15 @@ def main():
 @app.route('/login', methods=['POST'], endpoint='usuario.login')
 def login():
     model = Usuario()
-    usuario = model.login(request)
+    usuario_inserido = request.form.get("usuario", "")
+    senha_inserida = request.form.get("senha", "")
+    usuario = model.login(request) if usuario_inserido else None
 
-    senha_inserida = request.form['senha'].encode('utf8')
+    if usuario is None:
+        flash('Usuário ou Senha Incorreta!')
+        return render_template('index.html')
+
+    senha_inserida = senha_inserida.encode('utf8')
     senha_cadastrada = usuario.senha.encode('utf8')
 
     if checkpw(senha_inserida, senha_cadastrada):
