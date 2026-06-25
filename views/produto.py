@@ -58,7 +58,7 @@ def insert():
     return render_template('produtos/insert.html')
 
 
-@app.route('/main/produtos/delete', methods=['GET'], endpoint='produto.delete')
+@app.route('/main/produtos/delete', methods=['POST'], endpoint='produto.delete')
 def delete():
     idproduto = request.values.get('idproduto', '')
 

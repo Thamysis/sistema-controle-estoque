@@ -12,6 +12,7 @@
     <body class="text-center">
         <main class="form-signin">
             <form action="{{ url_for('usuario.login') }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <img class="mb-4" src="{{ url_for('static', filename='logo/bootstrap-logo.svg') }}" alt="" width="72" height="57">
 
                 {% with messages = get_flashed_messages() %}

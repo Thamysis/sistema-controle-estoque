@@ -34,6 +34,7 @@
                     {% endwith %}
 
                     <form action="{{ url_for('produto.insert') }}" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <label for="nome" class="visually-hidden">Nome:</label>
                         <input type="text" name=nome id="nome" class="form-control" placeholder="Nome do Produto" required autofocus>
 
