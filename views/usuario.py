@@ -20,9 +20,6 @@ def index():
 @app.route('/main', methods=['GET'], endpoint='main')
 @login_required
 def main():
-    if 'logged' not in session or not session['logged']:
-        return redirect(url_for('index'))
-
     return render_template('main.html')
 
 
