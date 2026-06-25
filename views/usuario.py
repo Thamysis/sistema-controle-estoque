@@ -5,6 +5,9 @@ from bcrypt import checkpw
 from models.Usuario import Usuario
 from views.auth import login_required
 
+MSG_LOGIN_INVALIDO = 'Usuário ou senha incorretos.'
+MSG_LOGOUT = 'Insira o usuário e a senha para continuar.'
+
 
 @app.route('/', methods=['GET'], endpoint='index')
 def index():
@@ -33,7 +36,7 @@ def login():
     usuario = model.login(request) if usuario_inserido else None
 
     if usuario is None:
-        flash('Usuário ou Senha Incorreta!')
+        flash(MSG_LOGIN_INVALIDO)
         return render_template('index.html')
 
     senha_inserida = senha_inserida.encode('utf8')
@@ -44,12 +47,12 @@ def login():
         return redirect(url_for('main'))
 
     else:
-        flash('Usuário ou Senha Incorreta!')
+        flash(MSG_LOGIN_INVALIDO)
         return render_template('index.html')
 
 
 @app.route('/logout', methods=['GET'], endpoint='usuario.logout')
 def logout():
     session.clear()
-    flash('Insira o usuário e senha para continuar.')
+    flash(MSG_LOGOUT)
     return redirect(url_for('index'))
