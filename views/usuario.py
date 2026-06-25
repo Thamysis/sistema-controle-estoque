@@ -3,6 +3,7 @@ from flask import request, session, render_template, redirect, url_for, flash
 from bcrypt import checkpw
 
 from models.Usuario import Usuario
+from views.auth import login_required
 
 
 @app.route('/', methods=['GET'], endpoint='index')
@@ -15,6 +16,7 @@ def index():
 
 
 @app.route('/main', methods=['GET'], endpoint='main')
+@login_required
 def main():
     if 'logged' not in session or not session['logged']:
         return redirect(url_for('index'))
@@ -48,6 +50,6 @@ def login():
 
 @app.route('/logout', methods=['GET'], endpoint='usuario.logout')
 def logout():
-    session['logged'] = False
+    session.clear()
     flash('Insira o usuário e senha para continuar.')
     return redirect(url_for('index'))
