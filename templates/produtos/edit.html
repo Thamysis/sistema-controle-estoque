@@ -44,13 +44,13 @@
 
                         <label for="categoria" class="visually-hidden">Categoria</label>
                         <select class="form-select" name="categoria" id="categoria">
-                            <option value="Placeholder" selected disabled>Selecione uma categoria</option>
-                            <option value="Informática">Informática</option>
-                            <option value="Telefonia">Telefonia</option>
-                            <option value="Moda">Moda</option>
-                            <option value="Eletrodomésticos">Eletrodomésticos</option>
-                            <option value="Automotivo">Automotivo</option>
-                            <option value="Pet Shop">Pet Shop</option>
+                            <option value="Placeholder" {% if not produto.categoria %}selected{% endif %} disabled>Selecione uma categoria</option>
+                            <option value="Informática" {% if produto.categoria == "Informática" %}selected{% endif %}>Informática</option>
+                            <option value="Telefonia" {% if produto.categoria == "Telefonia" %}selected{% endif %}>Telefonia</option>
+                            <option value="Moda" {% if produto.categoria == "Moda" %}selected{% endif %}>Moda</option>
+                            <option value="Eletrodomésticos" {% if produto.categoria == "Eletrodomésticos" %}selected{% endif %}>Eletrodomésticos</option>
+                            <option value="Automotivo" {% if produto.categoria == "Automotivo" %}selected{% endif %}>Automotivo</option>
+                            <option value="Pet Shop" {% if produto.categoria == "Pet Shop" %}selected{% endif %}>Pet Shop</option>
                         </select>
 
                         <button class="w-100 btn btn-lg btn-primary" type="submit">Salvar</button>
