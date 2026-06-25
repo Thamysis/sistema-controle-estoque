@@ -18,6 +18,10 @@ MSG_QUANTIDADE_INVALIDA = "Campo 'quantidade' é obrigatório e deve ser numéri
 MSG_CATEGORIA_INVALIDA = "Campo 'categoria' é obrigatório ou é inválido."
 
 
+def idproduto_valido(idproduto):
+    return bool(idproduto and idproduto.isdigit() and int(idproduto) > 0)
+
+
 @app.route('/main/produtos/insert', methods=['GET', 'POST'], endpoint='produto.insert')
 def insert():
     if request.method == 'GET':
@@ -51,7 +55,7 @@ def insert():
 def delete():
     idproduto = request.values.get('idproduto', '')
 
-    if not idproduto or not idproduto.isdigit() or int(idproduto) <= 0:
+    if not idproduto_valido(idproduto):
         flash(MSG_IDPRODUTO_INVALIDO)
 
     else:
@@ -74,7 +78,7 @@ def edit():
     if request.method == 'GET':
         idproduto = request.values.get('idproduto', '')
 
-        if not idproduto or not idproduto.isdigit() or int(idproduto) <= 0:
+        if not idproduto_valido(idproduto):
             flash(MSG_IDPRODUTO_INVALIDO)
             return redirect(url_for('produto.list'))
 
@@ -91,7 +95,7 @@ def edit():
 
         categorias = CATEGORIAS_VALIDAS
 
-        if not idproduto or not idproduto.isdigit() or int(idproduto) <= 0:
+        if not idproduto_valido(idproduto):
             flash(MSG_IDPRODUTO_INVALIDO)
 
         if not nome or len(nome) > 40:
