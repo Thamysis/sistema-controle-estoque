@@ -16,6 +16,7 @@ MSG_IDPRODUTO_INVALIDO = "Campo 'idproduto' é obrigatório e deve ser numérico
 MSG_NOME_INVALIDO = "Campo 'nome' é obrigatório e deve ter no máximo 40 caracteres."
 MSG_QUANTIDADE_INVALIDA = "Campo 'quantidade' é obrigatório e deve ser numérico."
 MSG_CATEGORIA_INVALIDA = "Campo 'categoria' é obrigatório ou é inválido."
+MSG_PRODUTO_NAO_ENCONTRADO = 'Produto não encontrado.'
 
 
 def idproduto_valido(idproduto):
@@ -88,10 +89,14 @@ def edit():
             flash(MSG_IDPRODUTO_INVALIDO)
             return redirect(url_for('produto.list'))
 
-        else:
-            model = Produto()
-            produto = model.view(request)
-            return render_template('produtos/edit.html', produto=produto)
+        model = Produto()
+        produto = model.view(request)
+
+        if produto is None:
+            flash(MSG_PRODUTO_NAO_ENCONTRADO)
+            return redirect(url_for('produto.list'))
+
+        return render_template('produtos/edit.html', produto=produto)
 
     else:
         idproduto = request.form.get('idproduto', '')
@@ -110,6 +115,11 @@ def edit():
             return render_template('produtos/edit.html', produto=request.form)
 
         model = Produto()
+
+        if model.view(request) is None:
+            flash(MSG_PRODUTO_NAO_ENCONTRADO)
+            return redirect(url_for('produto.list'))
+
         model.edit(request)
         flash('Produto alterado com sucesso.')
 
